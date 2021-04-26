@@ -51,7 +51,7 @@ export async function calcDiff(
           .pricePerUnit * recipe.output.count,
     };
   } else {
-    const price = convert(recipe.output.id, recipe.output.count, bazaar);
+    const price = convert(recipe.output.id, recipe.output.count, bazaar, false);
     outputPrice = {
       buy: price,
       sell: price,
@@ -72,43 +72,10 @@ export async function calcDiff(
 export function convert(
   item: string,
   count: number,
-  bazaar: quickData
+  bazaar: quickData,
+  typeIsInput: boolean
 ): number {
   let base: number;
-  switch (item) {
-    case "glacite_jewel":
-      base = 35000;
-      break;
-    case "golden_plate":
-      base =
-        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
-          2 +
-        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
-        175000;
-      break;
-    case "mithril_plate":
-      base =
-        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
-          2 +
-        bazaar.products["REFINED_TITANIUM"].buy_summary[0].pricePerUnit * 1 +
-        bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
-          1 +
-        bazaar.products["REFINED_MITHRIL"].buy_summary[0].pricePerUnit * 5 +
-        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
-        175000;
-      break;
-    case "fuel_tank":
-      base =
-        bazaar.products["ENCHANTED_COAL_BLOCK"].buy_summary[0].pricePerUnit * 2;
-      break;
-    case "bejeweled_handle":
-      base = 105000;
-      break;
-    case "drill_engine":
-      base =
-        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
-          2 +
-        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 2 +
   if (typeIsInput) {
     switch (item) {
       case "glacite_jewel":
