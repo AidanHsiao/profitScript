@@ -1,8 +1,10 @@
 import { MessageEmbed, Message } from "discord.js";
+import { fetchBazaarData } from "../api/call";
 import { calcDiff } from "../util/diff";
 
 export async function forge(msg: Message): Promise<void> {
   const forgeList = [];
+  const bazaar = await fetchBazaarData();
   const refined_diamond = await calcDiff({
     input: [
       {
@@ -15,7 +17,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "refined_diamond",
       count: 1,
     },
-  });
+  }, bazaar);
   const refined_mithril = await calcDiff({
     input: [
       {
@@ -28,7 +30,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "refined_mithril",
       count: 1,
     },
-  });
+  }, bazaar);
   const refined_titanium = await calcDiff({
     input: [
       {
@@ -41,7 +43,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "refined_titanium",
       count: 1,
     },
-  });
+  }, bazaar);
   const fuel_tank = await calcDiff({
     input: [
       {
@@ -54,7 +56,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "fuel_tank",
       count: 1,
     },
-  });
+  }, bazaar);
   const bejeweled_handle = await calcDiff({
     input: [
       {
@@ -67,7 +69,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "bejeweled_handle",
       count: 1,
     },
-  });
+  }, bazaar);
   const drill_engine = await calcDiff({
     input: [
       {
@@ -96,7 +98,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "drill_engine",
       count: 1,
     },
-  });
+  }, bazaar);
   const golden_plate = await calcDiff({
     input: [
       {
@@ -117,7 +119,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "golden_plate",
       count: 1,
     },
-  });
+  }, bazaar);
   const mithril_plate = await calcDiff({
     input: [
       {
@@ -142,7 +144,7 @@ export async function forge(msg: Message): Promise<void> {
       id: "mithril_plate",
       count: 1,
     },
-  });
+  }, bazaar);
   forgeList.push({
     name: "Refined Diamond",
     data: refined_diamond,

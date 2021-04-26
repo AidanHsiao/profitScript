@@ -1,4 +1,4 @@
-import { fetchBazaarData } from "./../api/call";
+import { quickData } from "./../api/call";
 
 export interface Item {
   id: string;
@@ -18,8 +18,10 @@ export interface Data {
   offerPerHour: number;
 }
 
-export async function calcDiff(recipe: Recipe): Promise<Data> {
-  const bazaar = await fetchBazaarData();
+export async function calcDiff(
+  recipe: Recipe,
+  bazaar: quickData
+): Promise<Data> {
   const bazaarStats = [];
   recipe.input.forEach((arg) => {
     if (bazaar.products[arg.id.toUpperCase()]) {
