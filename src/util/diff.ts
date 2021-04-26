@@ -13,9 +13,8 @@ export interface Recipe {
 
 export interface Data {
   baseProfit: number;
-  offerProfit: number;
   basePerHour: number;
-  offerPerHour: number;
+  baseCost: number;
 }
 
 export async function calcDiff(
@@ -34,7 +33,7 @@ export async function calcDiff(
           arg.count,
       });
     } else {
-      const price = convert(arg.id, arg.count);
+      const price = convert(arg.id, arg.count, bazaar);
       bazaarStats.push({
         buy: price,
         sell: price,
@@ -52,7 +51,7 @@ export async function calcDiff(
           .pricePerUnit * recipe.output.count,
     };
   } else {
-    const price = convert(recipe.output.id, recipe.output.count);
+    const price = convert(recipe.output.id, recipe.output.count, bazaar);
     outputPrice = {
       buy: price,
       sell: price,
@@ -62,42 +61,61 @@ export async function calcDiff(
   bazaarStats.forEach((arg) => {
     totalBuyCost += arg.buy;
   });
-  let totalSellCost = 0;
-  bazaarStats.forEach((arg) => {
-    totalSellCost += arg.sell;
-  });
   const data = {
     baseProfit: outputPrice.sell - totalBuyCost,
-    offerProfit: outputPrice.buy - totalSellCost,
     basePerHour: (outputPrice.sell - totalBuyCost) / recipe.duration,
-    offerPerHour: (outputPrice.buy - totalSellCost) / recipe.duration,
+    baseCost: totalBuyCost,
   };
   return data;
 }
 
-export function convert(item: string, count: number): number {
+export function convert(
+  item: string,
+  count: number,
+  bazaar: quickData
+): number {
   let base: number;
   switch (item) {
     case "glacite_jewel":
       base = 35000;
       break;
     case "golden_plate":
-      base = 1200000;
+      base =
+        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+          2 +
+        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
+        175000;
       break;
     case "mithril_plate":
-      base = 4000000;
+      base =
+        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+          2 +
+        bazaar.products["REFINED_TITANIUM"].buy_summary[0].pricePerUnit * 1 +
+        bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
+          1 +
+        bazaar.products["REFINED_MITHRIL"].buy_summary[0].pricePerUnit * 5 +
+        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
+        175000;
       break;
     case "fuel_tank":
-      base = 350000;
+      base =
+        bazaar.products["ENCHANTED_COAL_BLOCK"].buy_summary[0].pricePerUnit * 2;
       break;
     case "bejeweled_handle":
-      base = 100000;
+      base = 105000;
       break;
     case "drill_engine":
-      base = 3500000;
-      break;
-    case "treasurite":
-      base = 25000;
+      base =
+        bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+          2 +
+        bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 2 +
+        bazaar.products["TREASURITE"].buy_summary[0].pricePerUnit * 10 +
+        bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
+          1 +
+        bazaar.products["ENCHANTED_REDSTONE_BLOCK"].buy_summary[0]
+          .pricePerUnit *
+          3 +
+        175000;
       break;
     default:
       base = 0;

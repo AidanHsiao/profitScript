@@ -7,7 +7,7 @@ export async function profitFunction(
 ): Promise<void> {
   switch (args[1]) {
     case "forge":
-      await forge(msg);
+      await forge(msg, args);
       break;
   }
 }
