@@ -33,7 +33,7 @@ export async function calcDiff(
           arg.count,
       });
     } else {
-      const price = convert(arg.id, arg.count, bazaar);
+      const price = convert(arg.id, arg.count, bazaar, true);
       bazaarStats.push({
         buy: price,
         sell: price,
@@ -109,17 +109,81 @@ export function convert(
         bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
           2 +
         bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 2 +
-        bazaar.products["TREASURITE"].buy_summary[0].pricePerUnit * 10 +
-        bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
-          1 +
-        bazaar.products["ENCHANTED_REDSTONE_BLOCK"].buy_summary[0]
-          .pricePerUnit *
-          3 +
-        175000;
-      break;
-    default:
-      base = 0;
-      break;
+  if (typeIsInput) {
+    switch (item) {
+      case "glacite_jewel":
+        base = 35000;
+        break;
+      case "golden_plate":
+        base =
+          bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+            2 +
+          bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
+          175000;
+        break;
+      case "mithril_plate":
+        base =
+          bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+            2 +
+          bazaar.products["REFINED_TITANIUM"].buy_summary[0].pricePerUnit * 1 +
+          bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
+            1 +
+          bazaar.products["REFINED_MITHRIL"].buy_summary[0].pricePerUnit * 5 +
+          bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 1 +
+          175000;
+        break;
+      case "fuel_tank":
+        base =
+          bazaar.products["ENCHANTED_COAL_BLOCK"].buy_summary[0].pricePerUnit *
+          2;
+        break;
+      case "bejeweled_handle":
+        base = 100000;
+        break;
+      case "drill_engine":
+        base =
+          bazaar.products["ENCHANTED_GOLD_BLOCK"].buy_summary[0].pricePerUnit *
+            2 +
+          bazaar.products["REFINED_DIAMOND"].buy_summary[0].pricePerUnit * 2 +
+          bazaar.products["TREASURITE"].buy_summary[0].pricePerUnit * 10 +
+          bazaar.products["ENCHANTED_IRON_BLOCK"].buy_summary[0].pricePerUnit *
+            1 +
+          bazaar.products["ENCHANTED_REDSTONE_BLOCK"].buy_summary[0]
+            .pricePerUnit *
+            3 +
+          175000;
+        break;
+      default:
+        base = 0;
+        break;
+    }
+  } else {
+    switch (item) {
+      case "glacite_jewel": {
+        base = 35000;
+        break;
+      }
+      case "golden_plate": {
+        base = 1200000;
+        break;
+      }
+      case "mithril_plate": {
+        base = 4000000;
+        break;
+      }
+      case "fuel_tank": {
+        base = 350000;
+        break;
+      }
+      case "bejeweled_handle": {
+        base = 100000;
+        break;
+      }
+      case "drill_engine": {
+        base = 3500000;
+        break;
+      }
+    }
   }
   return base * count;
 }
