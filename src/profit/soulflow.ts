@@ -45,11 +45,11 @@ export async function soulflow(msg: Message): Promise<void> {
       {
         name: "Max Soulflow Profits Per Day",
         value: `\`${Math.max(
-          24 * parseFloat((soulflow.raw * 540).toFixed(1)),
-          24 * parseFloat(((soulflow.refined / 8) * 27).toFixed(1))
+          parseFloat((soulflow.raw * 12960).toFixed(1)),
+          parseFloat((soulflow.refined * 81).toFixed(1))
         )} - ${Math.max(
-          24 * parseFloat((soulflow.raw * 594).toFixed(1)),
-          24 * parseFloat(((soulflow.refined / 7.2727) * 27).toFixed(1))
+          parseFloat((soulflow.raw * 14256).toFixed(1)),
+          parseFloat((soulflow.refined * 89.1).toFixed(1))
         )}\``,
         inline: true,
       },
