@@ -32,18 +32,25 @@ export async function soulflow(msg: Message): Promise<void> {
         inline: true,
       },
       {
-        name: "Raw Soulflow Profits Per Hour",
-        value: `\`${(soulflow.raw * 540).toFixed(1)} - ${(
-          soulflow.raw * 594
-        ).toFixed(1)}\``,
+        name: "Max Soulflow Profits Per Hour",
+        value: `\`${Math.max(
+          parseFloat((soulflow.raw * 540).toFixed(1)),
+          parseFloat(((soulflow.refined / 8) * 27).toFixed(1))
+        )} - ${Math.max(
+          parseFloat((soulflow.raw * 594).toFixed(1)),
+          parseFloat(((soulflow.refined / 7.2727) * 27).toFixed(1))
+        )}\``,
         inline: true,
       },
       {
-        name: "Soulflow Profits Per Hour",
-        value: `\`${((soulflow.refined / 8) * 27).toFixed(1)} - ${(
-          (soulflow.refined / 7.2727) *
-          27
-        ).toFixed(1)}\``,
+        name: "Max Soulflow Profits Per Day",
+        value: `\`${Math.max(
+          24 * parseFloat((soulflow.raw * 540).toFixed(1)),
+          24 * parseFloat(((soulflow.refined / 8) * 27).toFixed(1))
+        )} - ${Math.max(
+          24 * parseFloat((soulflow.raw * 594).toFixed(1)),
+          24 * parseFloat(((soulflow.refined / 7.2727) * 27).toFixed(1))
+        )}\``,
         inline: true,
       },
       {
