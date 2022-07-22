@@ -127,11 +127,11 @@ export function convert(
   } else {
     switch (item) {
       case "glacite_jewel": {
-        base = 35000;
+        base = 60000;
         break;
       }
       case "golden_plate": {
-        base = 1200000;
+        base = 1400000;
         break;
       }
       case "mithril_plate": {
@@ -139,15 +139,15 @@ export function convert(
         break;
       }
       case "fuel_tank": {
-        base = 350000;
+        base = 300000;
         break;
       }
       case "bejeweled_handle": {
-        base = 100000;
+        base = 170000;
         break;
       }
       case "drill_engine": {
-        base = 3500000;
+        base = 3000000;
         break;
       }
     }
